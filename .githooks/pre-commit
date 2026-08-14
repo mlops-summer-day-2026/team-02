@@ -20,7 +20,7 @@ fi
 # 2. Похожие на ключи строки в содержимом (сам хук не проверяем)
 leak=$(git diff --cached -U0 -- . ':(exclude).githooks/*' \
   | grep -E '^\+' \
-  | grep -oE '(sk-ant-[A-Za-z0-9_-]{16,}|sk-or-v1-[A-Za-z0-9]{16,}|r8_[A-Za-z0-9]{20,}|AIza[A-Za-z0-9_-]{30,}|[0-9]{8,10}:AA[A-Za-z0-9_-]{30,})')
+  | grep -oE '(sk-(proj-)?[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{16,}|sk-or-v1-[A-Za-z0-9]{16,}|r8_[A-Za-z0-9]{20,}|AIza[A-Za-z0-9_-]{30,}|[0-9]{8,10}:AA[A-Za-z0-9_-]{30,})')
 if [ -n "$leak" ]; then
   red "СТОП: в изменениях похоже на настоящий ключ."
   echo "$leak" | cut -c1-14 | sed 's/$/.../'
